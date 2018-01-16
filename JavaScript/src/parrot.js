@@ -14,24 +14,8 @@ export class Parrot {
         this.isNailed = isNailed;
     }
 
-    getSpeed() {
-        switch (this.type) {
-            case PARROT_TYPES.EUROPEAN:
-                return this.getBaseSpeed();
-            case PARROT_TYPES.AFRICAN:
-                return Math.max(0, this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts);
-            case PARROT_TYPES.NORWEGIAN_BLUE:
-                return (this.isNailed) ? 0 : this.getBaseSpeedWithVoltage(this.voltage);
-        }
-        throw new Error("Should be unreachable");
-    }
-
-    getBaseSpeedWithVoltage(voltage) {
-        return Math.min(24, voltage * this.getBaseSpeed());
-    }
-
-    getLoadFactor() {
-        return 9;
+    getSpeed(){
+        throw new Error()
     }
 
     getBaseSpeed() {
@@ -40,21 +24,40 @@ export class Parrot {
 }
 
 export class EuropeanParrot extends Parrot {
-  constructor(numberOfCoconuts, voltage, isNailed){
-    super(PARROT_TYPES.EUROPEAN, numberOfCoconuts, voltage, isNailed)
+  constructor(numberOfCoconuts){
+    super(PARROT_TYPES.EUROPEAN, numberOfCoconuts)
+  }
+
+  getSpeed() {
+      return this.getBaseSpeed()
   }
 }
 
 
 export class AfricanParrot extends Parrot {
-  constructor(numberOfCoconuts, voltage, isNailed){
-    super(PARROT_TYPES.AFRICAN, numberOfCoconuts, voltage, isNailed)
+  constructor(numberOfCoconuts, isNailed){
+    super(PARROT_TYPES.AFRICAN, numberOfCoconuts, 0, isNailed)
+  }
+
+  getSpeed(){
+    return Math.max(0, this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts);
+  }
+  getLoadFactor() {
+    return 9;
   }
 }
 
 export class NorwegianParrot extends Parrot {
   constructor(numberOfCoconuts, voltage, isNailed){
     super(PARROT_TYPES.NORWEGIAN_BLUE, numberOfCoconuts, voltage, isNailed)
+  }
+
+  getSpeed(){
+    return (this.isNailed) ? 0 : this.getBaseSpeedWithVoltage(this.voltage);
+  }
+
+  getBaseSpeedWithVoltage(voltage) {
+    return Math.min(24, voltage * this.getBaseSpeed());
   }
 }
 
