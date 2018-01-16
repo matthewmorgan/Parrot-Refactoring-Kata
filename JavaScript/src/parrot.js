@@ -4,6 +4,8 @@ export const PARROT_TYPES = {
     NORWEGIAN_BLUE: 'NORWEGIAN_BLUE',
 };
 
+
+
 export class Parrot {
     constructor(type, numberOfCoconuts, voltage, isNailed) {
         this.type = type;
@@ -35,4 +37,10 @@ export class Parrot {
     getBaseSpeed() {
         return 12;
     }
+}
+
+class EuropeanParrot extends Parrot {
+  constructor(numberOfCoconuts, voltage, isNailed){
+    super(PARROT_TYPES.EUROPEAN, numberOfCoconuts, voltage, isNailed)
+  }
 }
